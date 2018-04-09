@@ -16,15 +16,14 @@
   *  Also, you need a Custom JavaScript Variable "EEC - Words in text price",
   *  which returns the number of words in the article. */
   
-  <script>
   jQuery(function($) {
     // Build the article into a product object first
     var titleElement = document.getElementsByClassName('entry-title')[0];
     var productName = titleElement.textContent || titleElement.innerText;
     productName = productName.trim();
     var product = [{
-        'name' : pName,
-        'id' : pName.replace(/ /g, '').replace(/[^\w]+/g, ''),
+        'name' : productName,
+        'id' : productName.replace(/ /g, '').replace(/[^\w]+/g, ''),
         'price' : {{EEC - Words in text price}},
         'category' : {{Page Path}}.split('/')[1],
         'quantity' : 1
@@ -45,8 +44,8 @@
     var didComplete = false;
     var purchase = false;
     
-    // Content area DIV class
-    var contentArea = 'entry-content';
+    // Content area CSS selector
+    var contentArea = '.entry-content';
 
     // Set some time variables to calculate reading time
     var startTime = new Date();
@@ -132,7 +131,7 @@
         if (endContent && !purchase) {
           currentTime = new Date();
           contentScrollEnd = currentTime.getTime();
-          timeToContentEnd = Math.round((contentScrollEnd - scrollStart) / 1000);
+          timeToContentEnd = Math.round((contentScrollEnd - beginning) / 1000);
           if (timeToContentEnd > 60 && !purchase) {
             dataLayer.push({
               'event' : 'purchase',
